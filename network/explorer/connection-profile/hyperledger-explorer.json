@@ -1,0 +1,92 @@
+{
+	"name": "hyperledger-explorer",
+	"x-type": "hlfv1",
+	"version": "1.0.0",
+	"license": "Apache-2.0",
+	"client": {
+		"tlsEnable": true,
+		"caCredential": {
+			"id": "admin",
+			"password": "adminpw"
+		},
+		"adminCredential": {
+			"id": "exploreradmin",
+			"password": "exploreradminpw",
+			"affiliation": "org1.department1"
+		},
+		"enableAuthentication": true,
+		"organization": "Org1"
+	},
+
+	"channels": {
+		"mychannel": {
+			"orderers": ["orderer.example.com"],
+			"peers": {
+				"peer0.org1.example.com": {
+					"endorsingPeer": true,
+					"chaincodeQuery": true,
+					"ledgerQuery": true,
+					"eventSource": true,
+					"discover": true
+				}
+			}
+		}
+	},
+
+	"organizations": {
+		"Org1": {
+			"mspid": "Org1MSP",
+			"adminPrivateKey": {
+				"path": "/tmp/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/7c6dc6dfca50c92e63e6cf0e7d0c8180ed2daf776cbeecd558d87c8c7485b613_sk"
+			},
+			"certificateAuthorities": ["ca-org1"],
+			"peers": ["peer0.org1.example.com"],
+			"signedCert": {
+				"path": "/tmp/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/Admin@org1.example.com-cert.pem"
+			}
+		}
+	},
+
+	"orderers": {
+		"orderer.example.com": {
+			"url": "grpcs://172.23.0.3:7050",
+			"grpcOptions": {
+				"ssl-target-name-override": "orderer.example.com"
+			},
+			"tlsCACerts": {
+				"path": "/tmp/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt"
+			}
+		}
+	},
+
+	"peers": {
+		"peer0.org1.example.com": {
+			"url": "grpcs://172.23.0.10:7051",
+			"tlsCACerts": {
+				"path": "/tmp/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt"
+			},
+			"grpcOptions": {
+				"ssl-target-name-override": "peer0.org1.example.com"
+			}
+		}
+	},
+	
+	"certificateAuthorities": {
+		"ca-org1": {
+			"url": "https://172.23.0.2:7054",
+			"caName": "ca-org1",
+			"tlsCACerts": {
+				"path": "/tmp/crypto/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem"
+			},
+			"registrar": [
+				{
+					"enrollId": "admin",
+					"enrollSecret": "adminpw"
+				}
+			],
+			"httpOptions": {
+				"verify": false
+			}
+		}
+	}
+}
