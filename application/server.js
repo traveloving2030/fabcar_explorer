@@ -43,7 +43,7 @@ app.post('/addCar', async(req, res)=>{
     const gateway = new Gateway();
     await gateway.connect(ccp, { wallet, identity: 'user1', discovery: { enabled: false } });
     const network = await gateway.getNetwork('mychannel');
-    const contract = network.getContract('fabcar');
+    const contract = network.getContract('contract');
 
     const key = req.body.new_key;
     const make = req.body.new_make;
@@ -70,7 +70,7 @@ app.post('/changeOwner', async(req, res)=>{
     const gateway = new Gateway();
     await gateway.connect(ccp, { wallet, identity: 'user1', discovery: { enabled: false } });
     const network = await gateway.getNetwork('mychannel');
-    const contract = network.getContract('fabcar');
+    const contract = network.getContract('contract');
 
     const key = req.body.key;
     const newOwner = req.body.changedOwner;
@@ -99,7 +99,7 @@ app.post('/car/:key', async (req,res)=>{
     const gateway = new Gateway();
     await gateway.connect(ccp, { wallet, identity: 'user1', discovery: { enabled: false } });
     const network = await gateway.getNetwork('mychannel');
-    const contract = network.getContract('fabcar');
+    const contract = network.getContract('contract');
     const result = await contract.evaluateTransaction('queryCar', key);
     const myobj = JSON.parse(result)
     // console.log(myobj);
@@ -124,7 +124,7 @@ app.post('/findOwner/:owner', async (req,res)=>{
     const gateway = new Gateway();
     await gateway.connect(ccp, { wallet, identity: 'user1', discovery: { enabled: false } });
     const network = await gateway.getNetwork('mychannel');
-    const contract = network.getContract('fabcar');
+    const contract = network.getContract('contract');
     const result = await contract.evaluateTransaction('queryCarByOwner', owner);
     const myobj = JSON.parse(result)
     console.log(myobj);
