@@ -27,8 +27,10 @@ app.get('/', (req, res)=>{
     res.sendFile(__dirname + '/index.html');
 })
 
-async function cc_call(fn_name, args){
-    
+
+// create Car
+app.post('/addCar', async(req, res)=>{
+
     const walletPath = path.join(process.cwd(), 'wallet');
     const wallet = new FileSystemWallet(walletPath);
 
@@ -41,58 +43,48 @@ async function cc_call(fn_name, args){
     const gateway = new Gateway();
     await gateway.connect(ccp, { wallet, identity: 'user1', discovery: { enabled: false } });
     const network = await gateway.getNetwork('mychannel');
-    const contract = network.getContract('teamate');
+    const contract = network.getContract('fabcar');
 
-    var result;
-    
-    if(fn_name == 'addUser')
-        result = await contract.submitTransaction('addUser', args);
-    else if( fn_name == 'addRating')
-    {
-        e=args[0];
-        p=args[1];
-        s=args[2];
-        result = await contract.submitTransaction('addRating', e, p, s);
-    }
-    else if(fn_name == 'readRating')
-        result = await contract.evaluateTransaction('readRating', args);
-    else
-        result = 'not supported function'
+    const key = req.body.new_key;
+    const make = req.body.new_make;
+    const model=req.body.new_model;
+    const color=req.body.new_color;
+    const owner=req.body.new_owner;
 
-    return result;
-}
-
-// create mate
-app.post('/mate', async(req, res)=>{
-    const email = req.body.email;
-    console.log("add mate email: " + email);
-
-    result = cc_call('addUser', email)
-
+    result = await contract.submitTransaction('createCar', key, make, model, color, owner);
     const myobj = {result: "success"}
     res.status(200).json(myobj) 
 })
 
 // add score
-app.post('/score', async(req, res)=>{
-    const email = req.body.email;
-    const prj = req.body.project;
-    const sc = req.body.score;
-    console.log("add project email: " + email);
-    console.log("add project name: " + prj);
-    console.log("add project score: " + sc);
+app.post('/changeOwner', async(req, res)=>{
+    const walletPath = path.join(process.cwd(), 'wallet');
+    const wallet = new FileSystemWallet(walletPath);
 
-    var args=[email, prj, sc];
-    result = cc_call('addRating', args)
+    const userExists = await wallet.exists('user1');
+    if (!userExists) {
+        console.log('An identity for the user "user1" does not exist in the wallet');
+        console.log('Run the registerUser.js application before retrying');
+        return;
+    }
+    const gateway = new Gateway();
+    await gateway.connect(ccp, { wallet, identity: 'user1', discovery: { enabled: false } });
+    const network = await gateway.getNetwork('mychannel');
+    const contract = network.getContract('fabcar');
 
+    const key = req.body.key;
+    const newOwner = req.body.changedOwner;
+    console.log("changedOwner은 " + newOwner);
+
+    result = await contract.submitTransaction('changeCarOwner', key, newOwner);
+    
     const myobj = {result: "success"}
     res.status(200).json(myobj) 
 })
 
 // find mate
-app.post('/mate/:email', async (req,res)=>{
-    const email = req.body.email;
-    console.log("email: " + req.body.email);
+app.post('/car/:key', async (req,res)=>{
+    const key = req.body.key;
     const walletPath = path.join(process.cwd(), 'wallet');
     const wallet = new FileSystemWallet(walletPath);
     console.log(`Wallet path: ${walletPath}`);
@@ -107,9 +99,35 @@ app.post('/mate/:email', async (req,res)=>{
     const gateway = new Gateway();
     await gateway.connect(ccp, { wallet, identity: 'user1', discovery: { enabled: false } });
     const network = await gateway.getNetwork('mychannel');
-    const contract = network.getContract('teamate');
-    const result = await contract.evaluateTransaction('readRating', email);
+    const contract = network.getContract('fabcar');
+    const result = await contract.evaluateTransaction('queryCar', key);
     const myobj = JSON.parse(result)
+    // console.log(myobj);
+    res.status(200).json(myobj)
+    // res.status(200).json(result)
+
+});
+
+app.post('/findOwner/:owner', async (req,res)=>{
+    const owner = req.body.owner_find;
+    const walletPath = path.join(process.cwd(), 'wallet');
+    const wallet = new FileSystemWallet(walletPath);
+    console.log(`Wallet path: ${walletPath}`);
+
+    // Check to see if we've already enrolled the user.
+    const userExists = await wallet.exists('user1');
+    if (!userExists) {
+        console.log('An identity for the user "user1" does not exist in the wallet');
+        console.log('Run the registerUser.js application before retrying');
+        return;
+    }
+    const gateway = new Gateway();
+    await gateway.connect(ccp, { wallet, identity: 'user1', discovery: { enabled: false } });
+    const network = await gateway.getNetwork('mychannel');
+    const contract = network.getContract('fabcar');
+    const result = await contract.evaluateTransaction('queryCarByOwner', owner);
+    const myobj = JSON.parse(result)
+    console.log(myobj);
     res.status(200).json(myobj)
     // res.status(200).json(result)
 
