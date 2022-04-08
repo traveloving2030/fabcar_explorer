@@ -128,10 +128,10 @@ app.post('/findOwner/:owner', async (req,res)=>{
     const network = await gateway.getNetwork('mychannel');
     const contract = network.getContract('contract');
     const result = await contract.evaluateTransaction('queryCarByOwner', owner);
+    console.log("결과는", result);
     const myobj = JSON.parse(result)
     console.log(myobj);
     res.status(200).json(myobj)
-    // res.status(200).json(result)
 
 });
 
