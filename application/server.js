@@ -13,7 +13,7 @@ const ccp = JSON.parse(ccpJSON);
 
 // Constants
 const PORT = 8080;
-const HOST = '0.0.0.0';
+const HOST = 'localhost';
 
 // use static file
 app.use(express.static(path.join(__dirname, 'views')));
