@@ -4,12 +4,14 @@ const app = express();
 var bodyParser = require('body-parser');
 
 // Hyperledger Bridge
-const { FileSystemWallet, Gateway } = require('fabric-network');
+const { FileSystemWallet, Gateway, X509WalletMixin } = require('fabric-network');
 const fs = require('fs');
 const path = require('path');
+const YAML = require('yaml');
+
 const ccpPath = path.resolve(__dirname, '..', 'network', 'connection.yaml');
-const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
-const ccp = JSON.parse(ccpJSON);
+const ccpYAML = fs.readFileSync(ccpPath, 'utf8');
+const ccp = YAML.parse(ccpYAML)
 
 // Constants
 const PORT = 8800;
