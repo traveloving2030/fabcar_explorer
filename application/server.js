@@ -12,7 +12,7 @@ const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
 const ccp = JSON.parse(ccpJSON);
 
 // Constants
-const PORT = 8080;
+const PORT = 8800;
 const HOST = 'localhost';
 
 // use static file
