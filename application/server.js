@@ -101,14 +101,12 @@ app.post('/car/:key', async (req,res)=>{
     const gateway = new Gateway();
     await gateway.connect(ccp, { wallet, identity: 'carOwner', discovery: { enabled: false } });
     const network = await gateway.getNetwork('mychannel');
-    console.log("network", network)
     const contract = network.getContract('contract');
-    console.log("contract", contract)
     const result = await contract.evaluateTransaction('queryCar', key);
-    console.log("result", result)
-    // const myobj = JSON.parse(result)
-    // res.status(200).json(myobj)
-    // res.status(200).json(result)
+    const myobj = JSON.parse(result)
+    console.log(myobj)
+    res.status(200).json(myobj)
+    res.status(200).json(result)
 
 });
 
