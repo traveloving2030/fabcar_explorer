@@ -51,9 +51,9 @@ organizations:
     certificateAuthorities:
       - ca-org1
     adminPrivateKey:
-      path: ./network/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/3c85875021ffb0d0a17852c8ac840224edcd5de68ba32486ef1972acf7654889_sk
+      path: ../network/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/3c85875021ffb0d0a17852c8ac840224edcd5de68ba32486ef1972acf7654889_sk
     signedCert:
-      path: ./network/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/Admin@org1.example.com-cert.pem
+      path: ../network/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/Admin@org1.example.com-cert.pem
 
   Org2:
     mspid: Org2MSP
@@ -63,9 +63,9 @@ organizations:
     certificateAuthorities:
       - ca-org2
     adminPrivateKey:
-      path: ./network/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/keystore/c3b8ec40f650096984c6a1495b233744a1bd1a3aa23aa0745ef7b8b538e9a2d6_sk
+      path: ../network/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/keystore/c3b8ec40f650096984c6a1495b233744a1bd1a3aa23aa0745ef7b8b538e9a2d6_sk
     signedCert:
-      path: ./network/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/signcerts/Admin@org2.example.com-cert.pem
+      path: ../network/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/signcerts/Admin@org2.example.com-cert.pem
 
 orderers: 
   orderer.example.com: 
@@ -73,7 +73,7 @@ orderers:
     grpcOptions: 
       ssl-target-name-override: orderer.example.com
     tlsCACerts:
-      path: ./network/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
+      path: ../network/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
 
 peers:
   peer0.org1.example.com:
@@ -81,14 +81,14 @@ peers:
     grpcOptions:
       ssl-target-name-override: peer0.org1.example.com
     tlsCACerts:
-      path: ./network/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+      path: ../network/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
 
   peer1.org1.example.com:
     url: grpcs://localhost:7151
     grpcOptions:
       ssl-target-name-override: peer1.org1.example.com
     tlsCACerts:
-      path: ./network/crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt
+      path: ../network/crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt
 
 
   peer0.org2.example.com:
@@ -96,21 +96,21 @@ peers:
     grpcOptions:
       ssl-target-name-override: peer0.org2.example.com
     tlsCACerts:
-      path: ./network/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+      path: ../network/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
 
   peer1.org2.example.com:
     url: grpcs://localhost:8151
     grpcOptions:
       ssl-target-name-override: peer1.org2.example.com
     tlsCACerts:
-      path: ./network/crypto-config/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/ca.crt
+      path: ../network/crypto-config/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/ca.crt
 
 certificateAuthorities:
   ca-org1:
     url: https://localhost:7054
     caName: ca-org1
     tlsCACerts:
-      path: ./network/crypto-config/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem
+      path: ../network/crypto-config/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem
 
     registrar:
       - enrollId: admin
@@ -122,7 +122,7 @@ certificateAuthorities:
     url: https://localhost:8054
     caName: ca-org2
     tlsCACerts:
-      path: ./network/crypto-config/peerOrganizations/org2.example.com/ca/ca.org2.example.com-cert.pem
+      path: ../network/crypto-config/peerOrganizations/org2.example.com/ca/ca.org2.example.com-cert.pem
     registrar:
       - enrollId: admin
         enrollSecret: adminpw
