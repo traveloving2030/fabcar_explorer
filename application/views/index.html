@@ -79,7 +79,7 @@
 
 
     $("#new-btn").click(()=>{
-        // new-email이라는 id값을 가지고 있는 input의 value를 가지고 옴
+
         const key = $("#new-key").val();
         const make = $("#new-make").val();
         const model = $("#new-model").val();
@@ -111,7 +111,7 @@
             // http 상태 코드가 200(success)이라면
             if(status == "success"){
                 // 성공했다는 alert창을 띄움
-                $('#add-alert').append("<div id='success' class='alert alert-success'>점수추가를 성공했습니다!</div>");
+                $('#add-alert').append("<div id='success' class='alert alert-success'>차량 소유주 변경을 성공했습니다!</div>");
                 $('#add-alert').fadeOut(4000);
             }
         })
