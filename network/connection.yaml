@@ -51,7 +51,7 @@ organizations:
     certificateAuthorities:
       - ca-org1
     adminPrivateKey:
-      path: ../network/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/7c6dc6dfca50c92e63e6cf0e7d0c8180ed2daf776cbeecd558d87c8c7485b613_sk
+      path: ../network/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/3c85875021ffb0d0a17852c8ac840224edcd5de68ba32486ef1972acf7654889_sk
     signedCert:
       path: ../network/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/Admin@org1.example.com-cert.pem
 
@@ -63,7 +63,7 @@ organizations:
     certificateAuthorities:
       - ca-org2
     adminPrivateKey:
-      path: ../network/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/keystore/b2173bf07c862bc3b87f26d71df68333aff03005c298ca4b251b2d86b67ffa46_sk
+      path: ../network/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/keystore/c3b8ec40f650096984c6a1495b233744a1bd1a3aa23aa0745ef7b8b538e9a2d6_sk
     signedCert:
       path: ../network/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/signcerts/Admin@org2.example.com-cert.pem
 
